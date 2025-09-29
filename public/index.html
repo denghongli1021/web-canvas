@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleCanvas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: rgb(92, 85, 85);">
+    <div id="currentDateTime" style="position: fixed; top: 10px; left: 10px; color: white; font-size: 18px;"></div>
+    <div id="currentLocation" style="position: fixed; top: 30px; left: 10px; color: white; font-size: 18px;"></div>
+    <div>
+        <button class="color-button" id="color_1" style="background-color: red;" onclick="resetButtonBorders('color_1');changeColor('red')"></button>
+        <button class="color-button" id="color_2" style="background-color: blue;" onclick="resetButtonBorders('color_2');changeColor('blue')"></button>
+        <button class="color-button" id="color_3" style="background-color: green;" onclick="resetButtonBorders('color_3');changeColor('green')"></button>
+        <button class="color-button" id="color_4" style="background-color: yellow;" onclick="resetButtonBorders('color_4');changeColor('yellow')"></button>
+        <button class="color-button" id="color_5" style="background-color: black; border: 5px solid green;" onclick="resetButtonBorders('color_5');changeColor(this.style.backgroundColor)"></button>
+        <button class="colorpicker-button" onclick="showColorPicker()">
+            <img src="pictures/custom_color_btn.png" alt="Custom Color" style="width: 25px; height: 25px;">
+        </button>
+        <div id="colorPickerContainer" style="position: absolute; top: 0; left: 75%;">
+            <input type="color" id="colorPicker" style="display: none;" onchange="changeCustomColor(this.value)">
+        </div>
+        <button class="color-button" id="colorPickerButton" style="background-color: black;" onclick="resetButtonBorders('colorPickerButton');changeColor(this.style.backgroundColor)"></button>
+    </div>
+    <canvas id="paintCanvas" width="1300" height="400"></canvas>
+    <div>
+        <button class="tool-button" id="tool1" onclick="resetButtonBorders('tool1');useTool('eraser')">
+            <img id="eraser-icon" src="pictures/eraser.png" alt="Eraser" style="width: 25px; height: 25px;">
+        </button>
+        <button class="tool-button" id="tool2" style="border: 5px solid green;"onclick="resetButtonBorders('tool2');useTool('brush')">
+            <img id="brush-icon" src="pictures/brush.png" alt="Brush" style="width: 25px; height: 25px;">
+        </button>
+        <button class="tool-button" id="tool3" onclick="resetButtonBorders('tool3');useTool('text')">
+            <img id="text-icon" src="pictures/text.png" alt="Add Text Box" style="width: 25px; height: 25px;">
+        </button>
+        <input type="range" id="brushSize" min="1" max="50" value="25" onchange="changeBrushSize(this.value)">
+        
+        <select id="fontSelect" onchange="changeFont(this.value)">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Helvetica">Helvetica</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Palatino">Palatino</option>
+            <option value="Impact">Impact</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+            <option value="Arial Black">Arial Black</option>
+            <option value="Garamond">Garamond</option>
+        </select>
+        
+        <input type="number" id="fontSize" min="1" max="100" value="10" onchange="changeFontSize(this.value)">
+    </div>
+    <div>
+        <button class="clear-button" onclick="clearCanvas()">
+            <img id="refresh-icon" src="pictures/refresh.png" alt="Refresh" style="width: 30px; height: 30px;">
+        </button>
+        <button class="upload-button" onclick="uploadImage()">
+            <img id="upload-icon" src="pictures/upload.png" alt="Upload Image" style="width: 30px; height: 30px;">
+        </button>
+        <button class="download-button" onclick="downloadCanvas()">
+            <img id="download-icon" src="pictures/download.png" alt="Download Canvas" style="width: 30px; height: 30px;">
+        </button>
+        <button class="UNDO-button" onclick="undo()">
+            <img id="UNDO-icon" src="pictures/undo.png" alt="Undo" style="width: 30px; height: 30px;">
+        </button>
+        <button class="REDO-button" onclick="redo()">
+            <img id="REDO-icon" src="pictures/redo.png" alt="Redo" style="width: 30px; height: 30px;">
+        </button>
+        <button class="tool-button" id="tool4" onclick="resetButtonBorders('tool4');useTool('circle')">
+            <img id="circle-icon" src="pictures/circle.png" alt="Circle" style="width: 30px; height: 30px;">
+        </button>
+        <button class="tool-button" id="tool5" onclick="resetButtonBorders('tool5');useTool('rectangle')">
+            <img id="rectangle-icon" src="pictures/rectangle.png" alt="Rectangle" style="width: 30px; height: 30px;">
+        </button>
+        <button class="tool-button" id="tool6" onclick="resetButtonBorders('tool6');useTool('triangle')">
+            <img id="triangle-icon" src="pictures/triangle.png" alt="Triangle" style="width: 30px; height: 30px;">
+        </button>
+        <button class="tool-button" id="tool7" onclick="resetButtonBorders('tool7');useTool('line')">
+            <img id="line-icon" src="pictures/line.png" alt="Line" style="width: 30px; height: 30px;">
+        </button>
+        <input type="checkbox" id="myCheckbox">
+        <label for="myCheckbox">Fill</label>
+        <button class="changetheme-button" onclick="ChangeisBackgroundChanged()">
+            <img id="changetheme-icon" src="pictures/change-theme.png" alt="Change-theme" style="width: 30px; height: 30px;">
+        </button>
+    </div>
+    <div id="statusDisplay"></div>
+    <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+    <script src="app.js"></script>
+</body>
+</html>

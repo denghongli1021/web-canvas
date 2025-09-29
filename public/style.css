@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    cursor: url('cur/icons8-paintbrush-24.png'), auto;
+}
+
+canvas {
+    border: 10px solid violet;
+    margin-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.color-button, .tool-button,.clear-button, .upload-button, .download-button, .UNDO-button, .REDO-button,.changetheme-button {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    padding: 0;
+    cursor: pointer;
+    border: 5px solid white;
+    border-radius: 50%;
+    outline: none;
+}
+
+.colorpicker-button {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    padding: 0;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 50%; 
+    outline: none;
+}
+.color-button img, .tool-button img, .clear-button img, .upload-button img, .download-button img,.changetheme-button img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+#brushSize, #fontSize {
+    margin: 5px;
+}
+
+#fontSelect, #imageUpload {
+    margin: 5px;
+}
+
+select, input[type="number"], input[type="file"], button {
+    padding: 5px;
+    font-size: 16px;
+}
+
+#paintCanvas {
+    background-color: white;
+}
+
+#statusDisplay {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
