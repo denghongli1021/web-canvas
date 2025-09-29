@@ -106,8 +106,3 @@ This is "2024 Spring CS241002 Software Studio" course project at National Tsing 
 
     助教辛苦了
 
-<style>
-table th{
-    width: 100%;
-}
-</style>
